@@ -6,7 +6,11 @@ date_default_timezone_set('America/Sao_Paulo');
 
 require __DIR__ . "/../vendor/autoload.php";
 
-$app = new Slim\App();
+$app = new Slim\App([
+  'settings' => [
+    'displayErrorDetails' => true
+  ]
+]);
 
 $container = $app->getContainer();
 
