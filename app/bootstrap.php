@@ -9,5 +9,7 @@ require __DIR__ . "/../vendor/autoload.php";
 $app = new Slim\App();
 
 $app->get('/', function($request, $response){
-  return 'Hello, World!';
+  return $response->write(
+    "What is your name? My name is: {$request->getParam('name')}"
+  );
 });
