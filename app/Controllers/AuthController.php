@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Controllers;
+
 use App\Models\User;
+use App\Models\UserPermission;
 
 class AuthController extends Controller {
 
@@ -19,13 +21,15 @@ class AuthController extends Controller {
     $now->modify('+1 hour');
     $key = bin2hex(random_bytes(20));
 
-    User::create([
+    $user = User::create([
       'name' => $request->getParam('name'),
       'email' => $request->getParam('email'),
       'password' => password_hash($request->getParam('password'), PASSWORD_DEFAULT),
       'confirmation_key' => $key,
       'confirmation_expires' => $now,
     ]);
+
+    $user->permissions()->create(UserPermission::$defaults);
 
     return $response->withRedirect($this->container->router->pathFor('auth.login'));
   }
