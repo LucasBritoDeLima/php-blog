@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\User;
 use App\Models\UserPermission;
+use Respect\Validation\Validator as v;
 
 class AuthController extends Controller {
 
@@ -16,6 +17,14 @@ class AuthController extends Controller {
     if($request->isGet())
       return $this->container->view->render($response, 'register.twig');
 
+      $validation = $this->container->validator->validate($request, [
+        'name' => v::notEmpty()->alpha()->length(10),
+        'email' => v::notEmpty()->noWhitespace()->email(),
+        'password' =>v::notEmpty()->noWhitespace()
+      ]);
+
+      if($validation->failed())
+        return $response->withRedirect($this->container->router->pathFor('auth.register'));
 
     $now = new \Datetime(date('d-m-Y H:i:s'));
     $now->modify('+1 hour');
