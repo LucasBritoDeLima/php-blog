@@ -8,4 +8,13 @@ class User extends Model {
 
   protected $table = 'users';
 
+  protected $fillable = [
+    'name',
+    'email',
+    'password',
+    'avatar',
+    'confirmation_key',
+    'confirmation_expires'
+  ];
+
 }
