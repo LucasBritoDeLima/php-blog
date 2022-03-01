@@ -16,11 +16,14 @@ class AuthController extends Controller {
 
 
     $now = new \Datetime(date('d-m-Y H:i:s'));
+    $now->modify('+1 hour');
+    $key = bin2hex(random_bytes(20));
+
     User::create([
       'name' => $request->getParam('name'),
       'email' => $request->getParam('email'),
-      'password' => $request->getParam('password'),
-      'confirmation_key' => 'asjasjasjasjasjdh',
+      'password' => password_hash($request->getParam('password'), PASSWORD_DEFAULT),
+      'confirmation_key' => $key,
       'confirmation_expires' => $now,
     ]);
 
