@@ -24,7 +24,7 @@ class Auth {
   public function attempt(string $email, string $password) {
     $user = User::where('email', $email)->first();
 
-    if(!$user || password_verify($password, $user->password)) {
+    if(!$user || !password_verify($password, $user->password)) {
       
       $this->container->flash->addMessage('error', 'Suas credenciais parecem estar erradas! Por favor verifique-as!');
       return false;
