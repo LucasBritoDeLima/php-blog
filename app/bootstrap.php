@@ -61,7 +61,7 @@ $container['view'] = function ($container) {
   return $view;
 };
 
-$container['hello'] = "Hello, World!";
+/*$container['hello'] = "Hello, World!";
 
 $container['HomeController'] = function ($container) {
   return new App\Controllers\HomeController($container);
@@ -69,7 +69,11 @@ $container['HomeController'] = function ($container) {
 
 $container['AuthController'] = function ($container) {
   return new App\Controllers\AuthController($container);
-};
+};*/
+
+require __DIR__ . '/commons.php';
+
+getControllers($container, ['HomeController', 'AuthController', 'UserController']);
 
 $app->add(new App\Middleware\DisplayInputErrorsMiddleware($container));
 
