@@ -10,6 +10,23 @@ class UserController extends Controller {
 
     if($request->isGet())
       return $this->container->view->render($response, 'user/avatar.twig');
+
+    $directory = $this->container->upload_directory;
+    $avatar = $request->getUploadedFiles()['avatar'];
+
+    if(!$avatar->getError()){
+      $filename = $this->moveUploadFile($directory, $avatar);
+      
+      $user = $this->container->auth->user();
+      $user->avatar = $filename;
+      $user->save();
+
+      $this->container->flash->addMessage('success', 'Avatar enviado com sucesso!');
+    } else {
+      $this->container->flash->addMessage('error', 'Houve um erro ao tentar enviar o avatar.');
+    }
+
+    return $response->withRedirect($this->container->router->pathFor('user.avatar'));
   }
 
   private function moveUploadFile($directory, UploadedFile $uploadedFile) {

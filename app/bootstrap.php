@@ -41,6 +41,8 @@ $container['auth'] = function($container) {
   return new App\Auth\Auth($container);
 };
 
+$container['upload_directory'] = __DIR__ . '/../public/uploads';
+
 $container['view'] = function ($container) {
   $view = new Slim\Views\Twig(__DIR__ . "/../resources/views", [
     'cache' => false,
