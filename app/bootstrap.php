@@ -75,7 +75,12 @@ $container['AuthController'] = function ($container) {
 
 require __DIR__ . '/commons.php';
 
-getControllers($container, ['HomeController', 'AuthController', 'UserController']);
+getControllers($container, [
+  'HomeController', 
+  'AuthController', 
+  'UserController',
+  'PostController'
+]);
 
 $app->add(new App\Middleware\DisplayInputErrorsMiddleware($container));
 
