@@ -6,7 +6,7 @@
   <div class="column is-8 is-offset-2">
     <div class="card article">
       <div class="card-content">
-        <form action="{{ path_for('post.edit', {'id': 1} ) }}" method="POST">
+        <form action="{{ path_for('post.edit', {'id': post.id} ) }}" method="POST">
 
           <div class="field is-horizontal">
             <div class="field-label is-normal">
@@ -73,7 +73,7 @@
               <div class="field">
                 <div class="control">
                   <button type="submit" class="button is-primary is-medium is-pulled-right">
-                    Postar
+                    Editar
                   </button>
                 </div>
               </div>
