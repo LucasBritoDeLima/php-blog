@@ -48,6 +48,14 @@ class AuthController extends Controller {
 
     $user->permissions()->create(UserPermission::$defaults);
 
+    $payload = [
+      'name' => $user->name,
+      'email' => $user->email,
+      'confirmation' => $key
+    ];
+
+    $this->container->mail->send($payload, 'welcome.twig', 'Welcome to MP BLOG ' . $user->name, $payload);
+
     return $response->withRedirect($this->container->router->pathFor('auth.login'));
   }
 
